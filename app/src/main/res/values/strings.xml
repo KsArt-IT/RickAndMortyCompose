@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Rick and Morty</string>
+
+    <string name="error_loading_data">Error: data loading</string>
 </resources>
