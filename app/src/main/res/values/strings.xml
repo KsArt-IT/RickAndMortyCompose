@@ -2,4 +2,8 @@
     <string name="app_name">Rick and Morty</string>
 
     <string name="error_loading_data">Error: data loading</string>
+    <string name="last_location_title">Last known location:</string>
+    <string name="retry_button_text">Retry</string>
+    <string name="loading_description">Loading</string>
+    <string name="error_description">Error</string>
 </resources>

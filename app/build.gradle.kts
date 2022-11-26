@@ -56,12 +56,12 @@ dependencies {
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
 
     // Lifecycle KTX
-    val lifecycleVers = "2.5.1"
+    val lifecycleVersion = "2.6.0-alpha03"
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.5.1")
     // ViewModel
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVers")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion")
     // Saved State module for ViewModel
-    implementation("androidx.lifecycle:lifecycle-viewmodel-savedstate:$lifecycleVers")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-savedstate:$lifecycleVersion")
     // Compose
     val composeVersion = "1.3.2"
     implementation(platform("androidx.compose:compose-bom:2022.10.00"))
@@ -71,8 +71,10 @@ dependencies {
     implementation("androidx.compose.material3:material3")
     implementation("androidx.activity:activity-compose:1.6.1")
     // Compose dependencies
-    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:$lifecycleVers")
-    implementation("androidx.navigation:navigation-compose:$lifecycleVers")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:$lifecycleVersion")
+    implementation("androidx.lifecycle:lifecycle-runtime-compose:$lifecycleVersion")
+//    implementation("androidx.lifecycle:lifecycle-runtime-compose:2.6.0-alpha03")
+    implementation("androidx.navigation:navigation-compose:$lifecycleVersion")
     implementation("com.google.accompanist:accompanist-flowlayout:0.27.0")
     // SplashScreen on devices prior Android 12
     implementation("androidx.core:core-splashscreen:1.0.0")
@@ -86,7 +88,6 @@ dependencies {
     kapt("com.google.dagger:hilt-android-compiler:$hiltVersion")
     kapt("androidx.hilt:hilt-compiler:1.0.0")
     implementation("androidx.hilt:hilt-navigation-compose:1.0.0")
-    implementation("androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03")
     // Retrofit
     val retrofitVersion = "2.9.0"
     implementation("com.squareup.retrofit2:retrofit:$retrofitVersion")
@@ -98,8 +99,6 @@ dependencies {
     implementation("com.squareup.moshi:moshi:$moshiVersion")
     implementation("com.squareup.moshi:moshi-kotlin:$moshiVersion")
     kapt("com.squareup.moshi:moshi-kotlin-codegen:$moshiVersion")
-    // Paging3
-    implementation("androidx.paging:paging-runtime-ktx:3.1.1")
     // Paging3 - Jetpack Compose integration
     implementation("androidx.paging:paging-compose:1.0.0-alpha17")
     // Coil

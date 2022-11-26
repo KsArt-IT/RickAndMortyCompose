@@ -20,10 +20,11 @@ Display of characters from the animated series Rick and Morty
 - [Coroutines](https://github.com/Kotlin/kotlinx.coroutines) for asynchronous operations
 - [Lifecycle-ktx](https://developer.android.com/kotlin/ktx)
 - [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel)
+- [Navigation Component Compose](https://developer.android.com/jetpack/compose/navigation)
+- [Paging Compose](https://developer.android.com/jetpack/androidx/releases/paging#paging_compose_version_100_2)
 - [Dagger Hilt](https://developer.android.com/training/dependency-injection/hilt-android) for Dependency Injection
 - [Retrofit](https://github.com/square/retrofit) for network operations
 - [OkHttp](https://github.com/square/okhttp)
+- [Moshi Conver](https://github.com/square/moshi) json converter
 - [Coil](https://coil-kt.github.io/coil/compose/) for image loading
 - [Api](https://rickandmortyapi.com/documentation/#get-all-characters)
-
-
