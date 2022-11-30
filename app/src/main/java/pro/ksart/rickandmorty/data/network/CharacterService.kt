@@ -1,6 +1,6 @@
 package pro.ksart.rickandmorty.data.network
 
-import pro.ksart.rickandmorty.data.entity.CharacterRam
+import pro.ksart.rickandmorty.data.entity.CharacterDetail
 import pro.ksart.rickandmorty.data.entity.CharacterResponse
 import retrofit2.Response
 import retrofit2.http.GET
@@ -15,9 +15,9 @@ interface CharacterService {
     ): Response<CharacterResponse>
 
     @GET("character/{id}")
-    suspend fun getCharacter(
-        @Path(PARAMS_ID) id: Long
-    ): CharacterRam
+    suspend fun getCharacterById(
+        @Path(PARAMS_ID) id: Int
+    ): CharacterDetail
 
     companion object {
         const val BASE_URL = "https://rickandmortyapi.com/api/"

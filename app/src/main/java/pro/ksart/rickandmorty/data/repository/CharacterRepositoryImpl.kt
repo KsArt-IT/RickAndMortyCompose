@@ -7,6 +7,7 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.withContext
+import pro.ksart.rickandmorty.data.entity.CharacterDetail
 import pro.ksart.rickandmorty.data.entity.CharacterRam
 import pro.ksart.rickandmorty.data.network.CharacterPagingSource
 import pro.ksart.rickandmorty.data.network.CharacterService
@@ -27,7 +28,7 @@ class CharacterRepositoryImpl @Inject constructor(
         pagingSourceFactory = { CharacterPagingSource(service) },
     ).flow.flowOn(dispatcher)
 
-    override suspend fun requestCharacterById(id: Long): CharacterRam = withContext(dispatcher) {
-        service.getCharacter(id)
+    override suspend fun requestCharacterById(id: Int): CharacterDetail = withContext(dispatcher) {
+        service.getCharacterById(id)
     }
 }

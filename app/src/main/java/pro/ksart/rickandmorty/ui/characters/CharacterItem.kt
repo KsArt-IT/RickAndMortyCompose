@@ -14,6 +14,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -25,14 +26,14 @@ import pro.ksart.rickandmorty.ui.components.CoilImageWithLoading
 @Composable
 fun CharacterItem(
     character: CharacterRam,
-    onClick: (CharacterRam) -> Unit
+    onClick: (Int) -> Unit
 ) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .padding(vertical = 8.dp),
         shape = RoundedCornerShape(8.dp),
-        onClick = { onClick(character) },
+        onClick = { onClick(character.id) },
     ) {
         Row(
             modifier = Modifier
@@ -53,22 +54,23 @@ fun CharacterItem(
             ) {
                 Text(
                     text = character.name,
-                    style = MaterialTheme.typography.titleMedium,
+                    style = MaterialTheme.typography.titleLarge,
                     overflow = TextOverflow.Ellipsis
                 )
                 Text(
                     text = character.status,
-                    style = MaterialTheme.typography.titleMedium,
+                    style = MaterialTheme.typography.bodyMedium
+                        .copy(color = if (character.status == "Alive") Color.Green else Color.Red),
                     overflow = TextOverflow.Ellipsis
                 )
                 Text(
                     text = stringResource(R.string.last_location_title),
-                    style = MaterialTheme.typography.titleMedium,
+                    style = MaterialTheme.typography.labelMedium,
                     overflow = TextOverflow.Ellipsis
                 )
                 Text(
                     text = character.location.name,
-                    style = MaterialTheme.typography.titleMedium,
+                    style = MaterialTheme.typography.bodyMedium,
                     overflow = TextOverflow.Ellipsis
                 )
             }

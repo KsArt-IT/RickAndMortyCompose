@@ -7,18 +7,21 @@ import androidx.paging.cachedIn
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.mapNotNull
+import kotlinx.coroutines.launch
 import pro.ksart.rickandmorty.data.entity.CharacterRam
 import pro.ksart.rickandmorty.domain.entity.Results
 import pro.ksart.rickandmorty.domain.usecase.GetCharactersUseCase
+import pro.ksart.rickandmorty.domain.usecase.SwitchDarkThemeUseCase
 import javax.inject.Inject
 
 @HiltViewModel
 class CharactersViewModel @Inject constructor(
-    getCharacters: GetCharactersUseCase,
+    getCharactersUseCase: GetCharactersUseCase,
+    private val switchDarkThemeUseCase: SwitchDarkThemeUseCase,
 ) : ViewModel() {
 
     val characters: Flow<PagingData<CharacterRam>> =
-        getCharacters().mapNotNull { result ->
+        getCharactersUseCase().mapNotNull { result ->
             when (result) {
                 is Results.Success -> result.data
                 is Results.Error -> null
@@ -26,4 +29,10 @@ class CharactersViewModel @Inject constructor(
             }
         }
             .cachedIn(viewModelScope)
+
+    fun switchDarkTheme() {
+        viewModelScope.launch {
+            switchDarkThemeUseCase()
+        }
+    }
 }

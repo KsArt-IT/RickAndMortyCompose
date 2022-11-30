@@ -6,4 +6,9 @@
     <string name="retry_button_text">Retry</string>
     <string name="loading_description">Loading</string>
     <string name="error_description">Error</string>
+    <string name="unknown_text">Unknown</string>
+    <string name="loading_text">Loading…</string>
+    <string name="theme_light_dark">Light/Dark</string>
+    <string name="episode_title">Episodes:</string>
+    <string name="character_image_description">Character</string>
 </resources>

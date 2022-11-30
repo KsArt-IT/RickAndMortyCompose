@@ -21,12 +21,11 @@ import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.items
 import pro.ksart.rickandmorty.R
-import pro.ksart.rickandmorty.data.entity.CharacterRam
 import pro.ksart.rickandmorty.ui.components.RickMortyAppBar
 
 @Composable
 fun CharactersScreen(
-    onClick: (CharacterRam) -> Unit,
+    onClick: (Int) -> Unit,
     viewModel: CharactersViewModel = hiltViewModel()
 ) {
     var topAppBarSize by remember { mutableStateOf(0) }
@@ -92,5 +91,6 @@ fun CharactersScreen(
         modifier = Modifier
             .fillMaxWidth()
             .onSizeChanged { topAppBarSize = it.height },
+        onActionClick = { viewModel.switchDarkTheme() }
     )
 }
