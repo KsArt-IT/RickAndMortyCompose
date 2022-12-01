@@ -9,8 +9,10 @@ import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.withContext
 import pro.ksart.rickandmorty.data.entity.CharacterDetail
 import pro.ksart.rickandmorty.data.entity.CharacterRam
+import pro.ksart.rickandmorty.data.entity.Episode
 import pro.ksart.rickandmorty.data.network.CharacterPagingSource
 import pro.ksart.rickandmorty.data.network.CharacterService
+import pro.ksart.rickandmorty.data.network.EpisodePagingSource
 import pro.ksart.rickandmorty.di.IoDispatcher
 import pro.ksart.rickandmorty.domain.repository.CharacterRepository
 import javax.inject.Inject
@@ -31,4 +33,12 @@ class CharacterRepositoryImpl @Inject constructor(
     override suspend fun requestCharacterById(id: Int): CharacterDetail = withContext(dispatcher) {
         service.getCharacterById(id)
     }
+
+    override fun requestEpisodes(): Flow<PagingData<Episode>> = Pager(
+        config = PagingConfig(
+            pageSize = CharacterService.PAGE_SIZE,
+            enablePlaceholders = false
+        ),
+        pagingSourceFactory = { EpisodePagingSource(service) },
+    ).flow.flowOn(dispatcher)
 }

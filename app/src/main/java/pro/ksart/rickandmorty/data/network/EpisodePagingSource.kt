@@ -2,27 +2,27 @@ package pro.ksart.rickandmorty.data.network
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import pro.ksart.rickandmorty.data.entity.CharacterRam
+import pro.ksart.rickandmorty.data.entity.Episode
 import retrofit2.HttpException
 import java.io.IOException
 
-class CharacterPagingSource(
+class EpisodePagingSource(
     private val service: CharacterService,
-) : PagingSource<Int, CharacterRam>() {
+) : PagingSource<Int, Episode>() {
 
-    override fun getRefreshKey(state: PagingState<Int, CharacterRam>): Int? {
+    override fun getRefreshKey(state: PagingState<Int, Episode>): Int? {
         return state.anchorPosition?.let { anchorPosition ->
             state.closestPageToPosition(anchorPosition)?.prevKey?.plus(1)
                 ?: state.closestPageToPosition(anchorPosition)?.nextKey?.minus(1)
         }
     }
 
-    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, CharacterRam> {
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Episode> {
         val position = params.key ?: CharacterService.STARTING_PAGE_INDEX
         return try {
-            val response = service.getCharacters(page = position)
+            val response = service.getEpisodes(page = position)
             if (response.isSuccessful) {
-                val result = response.body()?.characterRams ?: emptyList()
+                val result = response.body()?.episodes ?: emptyList()
                 val pageNext = response.body()?.info?.next
                 val nextKey = if (result.isEmpty() || pageNext.isNullOrBlank()) null
                 else position + 1
@@ -43,3 +43,4 @@ class CharacterPagingSource(
         }
     }
 }
+

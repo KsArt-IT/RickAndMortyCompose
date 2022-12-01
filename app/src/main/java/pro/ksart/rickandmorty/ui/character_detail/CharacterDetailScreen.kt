@@ -1,19 +1,13 @@
 package pro.ksart.rickandmorty.ui.character_detail
 
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.aspectRatio
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -24,23 +18,25 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
-import coil.compose.AsyncImage
-import com.google.accompanist.flowlayout.FlowRow
+import androidx.paging.LoadState
+import androidx.paging.compose.collectAsLazyPagingItems
+import androidx.paging.compose.items
 import pro.ksart.rickandmorty.R
 import pro.ksart.rickandmorty.data.entity.CharacterDetail
 import pro.ksart.rickandmorty.data.entity.UiEvent
 import pro.ksart.rickandmorty.data.entity.UiState
+import pro.ksart.rickandmorty.ui.characters.ErrorItem
+import pro.ksart.rickandmorty.ui.characters.ErrorView
+import pro.ksart.rickandmorty.ui.characters.LoadingItem
 import pro.ksart.rickandmorty.ui.characters.LoadingView
 import pro.ksart.rickandmorty.ui.components.RickMortyAppBar
 
@@ -51,14 +47,15 @@ fun CharacterDetailScreen(
     navController: NavController,
     viewModel: CharacterDetailViewModel = hiltViewModel(),
 ) {
+    // если id не определен, вернемся назад
+    if (characterId == -1) navController.navigateUp()
+
     var topAppBarSize by remember { mutableStateOf(0) }
     val unknown = stringResource(id = R.string.unknown_text)
     var topAppBarTitle by remember { mutableStateOf(unknown) }
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val uiEvent by viewModel.uiEvent.collectAsStateWithLifecycle(UiEvent.Success(Unit))
-
-    // если id не определен, вернемся назад
-    if (characterId == -1) navController.navigateUp()
+    val episodes = viewModel.episodes.collectAsLazyPagingItems()
 
     viewModel.getCharacterDetail(characterId)
 
@@ -77,7 +74,67 @@ fun CharacterDetailScreen(
                     contentPadding = PaddingValues(8.dp),
                 ) {
                     item {
-                        showCharacterDetail(characterDetail)
+                        CharacterDetailView(characterDetail)
+                    }
+                    // Episodes
+                    val characterEpisodes = characterDetail.episode.mapNotNull { url ->
+                        url.toUri().lastPathSegment?.toIntOrNull()
+                    }
+                    item {
+                        Text(
+                            text = stringResource(id = R.string.episode_title),
+                            style = MaterialTheme.typography.bodyMedium,
+                            modifier = Modifier.padding(8.dp),
+                        )
+                    }
+                    items(episodes) { episode ->
+                        episode?.takeIf { element ->
+                            characterEpisodes.contains(element.id)
+                        }?.let {
+                            EpisodeItem(
+                                id = it.id,
+                                name = it.name,
+                                type = it.type,
+                                dimension = it.dimension,
+                                created = it.created,
+                            )
+                        }
+                    }
+                    episodes.apply {
+                        when {
+                            // по состоянию показать на весь экран
+                            loadState.refresh is LoadState.Loading -> {
+                                //You can add modifier to manage load state when first time response page is loading
+                                item { LoadingView(modifier = Modifier.fillParentMaxSize()) }
+                            }
+
+                            loadState.refresh is LoadState.Error -> {
+                                val e = episodes.loadState.refresh as LoadState.Error
+                                item {
+                                    ErrorView(
+                                        message = e.error.localizedMessage!!,
+                                        modifier = Modifier.fillParentMaxSize(),
+                                        onClickRetry = { retry() }
+                                    )
+                                }
+                            }
+                            // показывать элемент
+                            loadState.append is LoadState.Loading -> {
+                                //You can add modifier to manage load state when next response page is loading
+                                item { LoadingItem() }
+                            }
+
+                            loadState.append is LoadState.Error -> {
+                                //You can use modifier to show error message
+                                val e = episodes.loadState.append as LoadState.Error
+                                item {
+                                    ErrorItem(
+                                        message = e.error.localizedMessage!!,
+                                        onClickRetry = { retry() }
+                                    )
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -107,89 +164,4 @@ fun CharacterDetailScreen(
         },
         onActionClick = { viewModel.switchDarkTheme() }
     )
-}
-
-@Composable
-private fun showCharacterDetail(characterDetail: CharacterDetail) {
-    CharacterHeader(characterDetail)
-    CharacterStat(statLabel = "Created", stat = characterDetail.created)
-    CharacterStat(statLabel = "Type", stat = characterDetail.type.ifBlank { "-" })
-    CharacterStat(statLabel = "Gender", stat = characterDetail.gender)
-    CharacterStat(statLabel = "Origin", stat = characterDetail.origin.name)
-    CharacterStat(statLabel = "Location", stat = characterDetail.location.name)
-    CharacterEpisode(characterDetail.episode)
-}
-
-@Composable
-fun CharacterHeader(character: CharacterDetail) {
-    AsyncImage(
-        model = character.image,
-        contentDescription = stringResource(id = R.string.character_image_description),
-        modifier = Modifier
-            .fillMaxHeight(0.5f)
-            .fillMaxWidth(1f)
-            .aspectRatio(1f)
-    )
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(8.dp)
-    ) {
-        Icon(
-            Icons.Filled.Person, contentDescription = null,
-            tint = if (character.status == "Alive") Color.Green else Color.Red
-        )
-        Text(
-            text = "${character.status} - ${character.species}",
-            style = MaterialTheme.typography.bodyLarge,
-            modifier = Modifier
-                .padding(start = 8.dp)
-        )
-    }
-}
-
-@Composable
-fun CharacterStat(statLabel: String, stat: String) {
-    Text(
-        text = "$statLabel: ${stat.ifBlank { stringResource(id = R.string.unknown_text) }}",
-        style = MaterialTheme.typography.bodyMedium,
-        modifier = Modifier.padding(8.dp),
-    )
-}
-
-@Composable
-fun CharacterEpisode(episodes: List<String>) {
-    Text(
-        text = "${stringResource(id = R.string.episode_title)}${if (episodes.isEmpty()) " -" else ""}",
-        style = MaterialTheme.typography.bodyMedium,
-        modifier = Modifier.padding(8.dp),
-    )
-    if (episodes.isNotEmpty()) {
-        FlowRow(
-            mainAxisSpacing = 10.dp,
-            crossAxisSpacing = 10.dp,
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            episodes.forEach { url ->
-                url.toUri().lastPathSegment?.let { episode ->
-                    Box(
-                        modifier = Modifier
-                            .border(
-                                width = 1.dp,
-                                color = MaterialTheme.colorScheme.primary,
-                                shape = RoundedCornerShape(100.dp)
-                            )
-                            .padding(10.dp)
-                    ) {
-                        Text(
-                            text = episode,
-                            color = MaterialTheme.colorScheme.primary,
-                            textAlign = TextAlign.Center,
-                            style = MaterialTheme.typography.bodyMedium
-                        )
-                    }
-                }
-            }
-        }
-    }
 }
