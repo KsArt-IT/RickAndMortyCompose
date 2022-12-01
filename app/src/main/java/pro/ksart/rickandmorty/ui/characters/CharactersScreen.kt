@@ -13,6 +13,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.onSizeChanged
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -21,7 +22,9 @@ import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.items
 import pro.ksart.rickandmorty.R
+import pro.ksart.rickandmorty.data.entity.UiEvent
 import pro.ksart.rickandmorty.ui.components.RickMortyAppBar
+import pro.ksart.rickandmorty.ui.showToast
 
 @Composable
 fun CharactersScreen(
@@ -30,6 +33,15 @@ fun CharactersScreen(
 ) {
     var topAppBarSize by remember { mutableStateOf(0) }
     val characters = viewModel.characters.collectAsLazyPagingItems()
+    val uiEventState by viewModel.uiEventState
+
+    uiEventState.let { event ->
+        when (event) {
+            is UiEvent.Success -> {}
+            is UiEvent.Error -> showToast(LocalContext.current, event.message)
+            is UiEvent.Toast -> showToast(LocalContext.current, event.stringId)
+        }
+    }
 
     Box(
         modifier = Modifier

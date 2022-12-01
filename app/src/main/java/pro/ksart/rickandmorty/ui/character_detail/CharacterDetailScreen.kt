@@ -1,5 +1,6 @@
 package pro.ksart.rickandmorty.ui.character_detail
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
@@ -19,6 +20,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.onSizeChanged
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -39,7 +41,9 @@ import pro.ksart.rickandmorty.ui.characters.ErrorView
 import pro.ksart.rickandmorty.ui.characters.LoadingItem
 import pro.ksart.rickandmorty.ui.characters.LoadingView
 import pro.ksart.rickandmorty.ui.components.RickMortyAppBar
+import pro.ksart.rickandmorty.ui.showToast
 
+@SuppressLint("FlowOperatorInvokedInComposition")
 @OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
 fun CharacterDetailScreen(
@@ -54,8 +58,16 @@ fun CharacterDetailScreen(
     val unknown = stringResource(id = R.string.unknown_text)
     var topAppBarTitle by remember { mutableStateOf(unknown) }
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-    val uiEvent by viewModel.uiEvent.collectAsStateWithLifecycle(UiEvent.Success(Unit))
     val episodes = viewModel.episodes.collectAsLazyPagingItems()
+    val uiEventState by viewModel.uiEventState
+
+    uiEventState.let { event ->
+        when (event) {
+            is UiEvent.Success -> {}
+            is UiEvent.Error -> showToast(LocalContext.current, event.message)
+            is UiEvent.Toast -> showToast(LocalContext.current, event.stringId)
+        }
+    }
 
     viewModel.getCharacterDetail(characterId)
 
@@ -64,7 +76,6 @@ fun CharacterDetailScreen(
             .fillMaxSize()
             .padding(top = LocalDensity.current.run { topAppBarSize.toDp() })
     ) {
-
         when (uiState) {
             is UiState.Success -> {
                 val characterDetail = (uiState as UiState.Success<CharacterDetail>).data
@@ -144,9 +155,7 @@ fun CharacterDetailScreen(
                 LoadingView(modifier = Modifier.fillMaxSize())
             }
 
-            is UiState.Error -> {
-//                Toast.makeText(this, (uiState as UiState.Error).message)
-            }
+            is UiState.Error -> {}
         }
     }
     RickMortyAppBar(
