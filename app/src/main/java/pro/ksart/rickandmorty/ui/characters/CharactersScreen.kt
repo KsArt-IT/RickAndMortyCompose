@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -15,9 +16,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.flowWithLifecycle
 import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.items
@@ -33,13 +36,21 @@ fun CharactersScreen(
 ) {
     var topAppBarSize by remember { mutableStateOf(0) }
     val characters = viewModel.characters.collectAsLazyPagingItems()
-    val uiEventState by viewModel.uiEventState
 
-    uiEventState.let { event ->
-        when (event) {
-            is UiEvent.Success -> {}
-            is UiEvent.Error -> showToast(LocalContext.current, event.message)
-            is UiEvent.Toast -> showToast(LocalContext.current, event.stringId)
+    val context = LocalContext.current
+    val lifecycleOwner = LocalLifecycleOwner.current
+    val uiEventFlow = viewModel.uiEvent
+    val uiEventFlowLifecycleAware = remember(uiEventFlow, lifecycleOwner) {
+        uiEventFlow.flowWithLifecycle(lifecycleOwner.lifecycle)
+    }
+
+    LaunchedEffect(key1 = "CharactersScreenKey") {
+        uiEventFlowLifecycleAware.collect { event ->
+            when (event) {
+                is UiEvent.Success -> {}
+                is UiEvent.Error -> showToast(context, event.message)
+                is UiEvent.Toast -> showToast(context, event.stringId)
+            }
         }
     }
 

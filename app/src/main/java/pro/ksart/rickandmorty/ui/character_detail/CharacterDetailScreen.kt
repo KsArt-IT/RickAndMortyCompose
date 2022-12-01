@@ -1,6 +1,5 @@
 package pro.ksart.rickandmorty.ui.character_detail
 
-import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
@@ -14,6 +13,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -22,12 +22,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.flowWithLifecycle
 import androidx.navigation.NavController
 import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
@@ -43,7 +45,6 @@ import pro.ksart.rickandmorty.ui.characters.LoadingView
 import pro.ksart.rickandmorty.ui.components.RickMortyAppBar
 import pro.ksart.rickandmorty.ui.showToast
 
-@SuppressLint("FlowOperatorInvokedInComposition")
 @OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
 fun CharacterDetailScreen(
@@ -59,13 +60,21 @@ fun CharacterDetailScreen(
     var topAppBarTitle by remember { mutableStateOf(unknown) }
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
     val episodes = viewModel.episodes.collectAsLazyPagingItems()
-    val uiEventState by viewModel.uiEventState
 
-    uiEventState.let { event ->
-        when (event) {
-            is UiEvent.Success -> {}
-            is UiEvent.Error -> showToast(LocalContext.current, event.message)
-            is UiEvent.Toast -> showToast(LocalContext.current, event.stringId)
+    val context = LocalContext.current
+    val lifecycleOwner = LocalLifecycleOwner.current
+    val uiEventFlow = viewModel.uiEvent
+    val uiEventFlowLifecycleAware = remember(uiEventFlow, lifecycleOwner) {
+        uiEventFlow.flowWithLifecycle(lifecycleOwner.lifecycle)
+    }
+
+    LaunchedEffect(key1 = "CharacterDetailScreenKey") {
+        uiEventFlowLifecycleAware.collect { event ->
+            when (event) {
+                is UiEvent.Success -> {}
+                is UiEvent.Error -> showToast(context, event.message)
+                is UiEvent.Toast -> showToast(context, event.stringId)
+            }
         }
     }
 
