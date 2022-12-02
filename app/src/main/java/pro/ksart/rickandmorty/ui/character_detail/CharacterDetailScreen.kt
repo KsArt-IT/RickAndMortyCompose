@@ -118,7 +118,7 @@ fun CharacterDetailScreen(
                         }?.let {
                             EpisodeItem(
                                 name = it.name,
-                                air_date = it.air_date,
+                                airDate = it.airDate,
                                 episode = it.episode,
                             )
                         }

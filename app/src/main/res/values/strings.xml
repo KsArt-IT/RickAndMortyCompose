@@ -1,14 +1,19 @@
 <resources>
-    <string name="app_name">Rick and Morty</string>
+    <string name="app_name" translatable="false">Rick and Morty</string>
 
-    <string name="error_loading_data">Error: data loading</string>
-    <string name="last_location_title">Last known location:</string>
-    <string name="retry_button_text">Retry</string>
-    <string name="loading_description">Loading</string>
-    <string name="error_description">Error</string>
-    <string name="unknown_text">Unknown</string>
-    <string name="loading_text">Loading…</string>
     <string name="theme_light_dark">Light/Dark</string>
-    <string name="episode_title">Episodes:</string>
+    <string name="error_loading_data">Error: data loading</string>
+    <string name="error_description">Error</string>
+    <string name="retry_button_text">Retry</string>
+    <string name="loading_text">Loading…</string>
+    <string name="loading_description">Loading</string>
+    <string name="unknown_text">Unknown</string>
+
     <string name="character_image_description">Character</string>
+    <string name="character_last_location_title">Last known location:</string>
+    <string name="character_status_title">Live status and gender:</string>
+    <string name="character_type_title">Type:</string>
+    <string name="character_created_title">Created:</string>
+    <string name="character_origin_title">Origin location:</string>
+    <string name="episode_title">Episodes:</string>
 </resources>

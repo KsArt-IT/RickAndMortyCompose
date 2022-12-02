@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -17,7 +18,7 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun EpisodeItem(
     name: String,
-    air_date: String,
+    airDate: String,
     episode: String,
 ) {
     Card(
@@ -25,6 +26,7 @@ fun EpisodeItem(
             .fillMaxWidth()
             .padding(vertical = 8.dp),
         shape = RoundedCornerShape(50.dp),
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.tertiary),
     ) {
         Row(
             modifier = Modifier
@@ -38,7 +40,7 @@ fun EpisodeItem(
                     style = MaterialTheme.typography.bodyMedium,
                 )
                 Text(
-                    text = air_date,
+                    text = airDate,
                     style = MaterialTheme.typography.bodySmall,
                 )
             }

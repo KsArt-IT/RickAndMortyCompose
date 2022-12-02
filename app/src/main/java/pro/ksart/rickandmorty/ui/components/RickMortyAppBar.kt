@@ -24,9 +24,9 @@ fun RickMortyAppBar(
     title: String,
     modifier: Modifier = Modifier,
     navigationIcon: @Composable () -> Unit = {},
-    backgroundColor: Color = MaterialTheme.colorScheme.background,
+    backgroundColor: Color = MaterialTheme.colorScheme.surface,
     contentColor: Color = contentColorFor(backgroundColor),
-    elevation: Dp = 4.dp,
+    elevation: Dp = 8.dp,
     onActionClick: () -> Unit
 ) {
     Surface(

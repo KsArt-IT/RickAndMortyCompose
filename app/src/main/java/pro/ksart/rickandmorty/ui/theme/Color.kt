@@ -2,10 +2,18 @@ package pro.ksart.rickandmorty.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-val BlueGrey800 = Color(0xff37474f)
-val BlueGreyLight800 = Color(0xff62727b)
+// Dark
+val BlueGreyDark900 = Color(0xff000a12)
 val BlueGreyDark800 = Color(0xff102027)
+val BlueGrey900 = Color(0xff263238)
+val BlueGrey800 = Color(0xff37474f)
+val BlueGreyLight900 = Color(0xff4f5b62)
+val BlueGreyLight800 = Color(0xff62727b)
 
-val BlueGrey600 = Color(0xff546e7a)
-val BlueGreyLight600 = Color(0xff819ca9)
-val BlueGreyDark600 = Color(0xff29434e)
+// Light
+val BlueGreyDark300 = Color(0xff62757f)
+val BlueGreyDark200 = Color(0xff808e95)
+val BlueGrey300 = Color(0xff90a4ae)
+val BlueGrey200 = Color(0xffb0bec5)
+val BlueGreyLight300 = Color(0xffc1d5e0)
+val BlueGreyLight200 = Color(0xffe2f1f8)

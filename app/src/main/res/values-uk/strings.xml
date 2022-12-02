@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="theme_light_dark">Світла/Темна</string>
+    <string name="error_loading_data">Помилка завантаження даних</string>
+    <string name="error_description">Помилка</string>
+    <string name="retry_button_text">Повторити</string>
+    <string name="loading_text">Завантаження…</string>
+    <string name="loading_description">Завантаження</string>
+    <string name="unknown_text">Невідомий</string>
+    <string name="character_image_description">Персонаж</string>
+    <string name="character_last_location_title">Остання відома локація:</string>
+    <string name="character_status_title">Актуальний статус та стать:</string>
+    <string name="character_type_title">Тип:</string>
+    <string name="character_created_title">Створено:</string>
+    <string name="character_origin_title">Початкова локація:</string>
+    <string name="episode_title">Епізоди:</string>
+</resources>

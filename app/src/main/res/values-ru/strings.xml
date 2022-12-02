@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="theme_light_dark">Светлая/Темная</string>
+    <string name="error_loading_data">Ошибка загрузки данных</string>
+    <string name="error_description">Ошибка</string>
+    <string name="retry_button_text">Повторить</string>
+    <string name="loading_text">Загрузка…</string>
+    <string name="loading_description">Загрузка</string>
+    <string name="unknown_text">Неизвестен</string>
+    <string name="character_image_description">Персонаж</string>
+    <string name="character_last_location_title">Последняя известная локация:</string>
+    <string name="character_status_title">Актуальный статус и пол:</string>
+    <string name="character_type_title">Тип:</string>
+    <string name="character_created_title">Создан:</string>
+    <string name="character_origin_title">Первоначальная локация:</string>
+    <string name="episode_title">Эпизоды:</string>
+</resources>
