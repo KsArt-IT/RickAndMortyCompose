@@ -103,8 +103,13 @@ fun CharacterDetailScreen(
                     item {
                         Text(
                             text = stringResource(id = R.string.episode_title),
-                            style = MaterialTheme.typography.bodyMedium,
-                            modifier = Modifier.padding(8.dp),
+                            style = MaterialTheme.typography.labelMedium,
+                            modifier = Modifier.padding(
+                                start = 8.dp,
+                                top = 8.dp,
+                                end = 8.dp,
+                                bottom = 4.dp
+                            ),
                         )
                     }
                     items(episodes) { episode ->
@@ -112,11 +117,9 @@ fun CharacterDetailScreen(
                             characterEpisodes.contains(element.id)
                         }?.let {
                             EpisodeItem(
-                                id = it.id,
                                 name = it.name,
-                                type = it.type,
-                                dimension = it.dimension,
-                                created = it.created,
+                                air_date = it.air_date,
+                                episode = it.episode,
                             )
                         }
                     }

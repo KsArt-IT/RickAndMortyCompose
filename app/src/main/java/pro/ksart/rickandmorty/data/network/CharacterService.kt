@@ -20,7 +20,7 @@ interface CharacterService {
         @Path(PARAMS_ID) id: Int
     ): CharacterDetail
 
-    @GET("location")
+    @GET("episode")
     suspend fun getEpisodes(
         @Query(PARAMS_PAGE) page: Int,
     ): Response<EpisodeResponse>

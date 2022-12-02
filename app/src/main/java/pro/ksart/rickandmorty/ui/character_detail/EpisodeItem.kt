@@ -1,6 +1,7 @@
 package pro.ksart.rickandmorty.ui.character_detail
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -15,31 +16,35 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun EpisodeItem(
-    id: Int,
     name: String,
-    type: String,
-    dimension: String,
-    created: String,
+    air_date: String,
+    episode: String,
 ) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .padding(vertical = 8.dp),
-        shape = RoundedCornerShape(20.dp),
+        shape = RoundedCornerShape(50.dp),
     ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(8.dp),
-            horizontalArrangement = Arrangement.Start
+                .padding(horizontal = 12.dp, vertical = 8.dp),
+            horizontalArrangement = Arrangement.Start,
         ) {
-            Text(
-                text = "$id: $name",
-                style = MaterialTheme.typography.bodySmall,
-            )
+            Column() {
+                Text(
+                    text = name,
+                    style = MaterialTheme.typography.bodyMedium,
+                )
+                Text(
+                    text = air_date,
+                    style = MaterialTheme.typography.bodySmall,
+                )
+            }
             Spacer(modifier = Modifier.weight(1f))
             Text(
-                text = type,
+                text = episode,
                 style = MaterialTheme.typography.bodySmall,
             )
         }
