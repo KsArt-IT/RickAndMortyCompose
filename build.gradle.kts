@@ -3,7 +3,7 @@ buildscript {
 
     dependencies {
         classpath("com.google.dagger:hilt-android-gradle-plugin:$hiltVersion")
-        classpath("com.android.tools.build:gradle:8.0.0-alpha09")
+        classpath("com.android.tools.build:gradle:7.4.0")
     }
 }
 // Top-level build file where you can add configuration options common to all sub-projects/modules.

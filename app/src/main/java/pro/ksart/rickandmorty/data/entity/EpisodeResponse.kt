@@ -12,4 +12,3 @@ data class EpisodeResponse(
     @Json(name = "results")
     val episodes: List<Episode>,
 )
-

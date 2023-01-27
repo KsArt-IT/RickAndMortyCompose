@@ -141,6 +141,7 @@ fun CharacterDetailScreen(
                                     )
                                 }
                             }
+                            // дозагрузка данных
                             // показывать элемент
                             loadState.append is LoadState.Loading -> {
                                 //You can add modifier to manage load state when next response page is loading

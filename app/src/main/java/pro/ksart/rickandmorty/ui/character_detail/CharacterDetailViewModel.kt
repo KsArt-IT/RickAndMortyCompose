@@ -17,14 +17,14 @@ import pro.ksart.rickandmorty.data.entity.Episode
 import pro.ksart.rickandmorty.data.entity.UiEvent
 import pro.ksart.rickandmorty.data.entity.UiState
 import pro.ksart.rickandmorty.domain.entity.Results
-import pro.ksart.rickandmorty.domain.usecase.GetCharacterDetailUserCase
+import pro.ksart.rickandmorty.domain.usecase.GetCharacterDetailUseCase
 import pro.ksart.rickandmorty.domain.usecase.GetEpisodesUseCase
 import pro.ksart.rickandmorty.domain.usecase.SwitchDarkThemeUseCase
 import javax.inject.Inject
 
 @HiltViewModel
 class CharacterDetailViewModel @Inject constructor(
-    private val getCharacterDetailUserCase: GetCharacterDetailUserCase,
+    private val getCharacterDetailUseCase: GetCharacterDetailUseCase,
     private val getEpisodesUseCase: GetEpisodesUseCase,
     private val switchDarkThemeUseCase: SwitchDarkThemeUseCase,
 ) : ViewModel() {
@@ -37,7 +37,7 @@ class CharacterDetailViewModel @Inject constructor(
 
     fun getCharacterDetail(id: Int) {
         viewModelScope.launch {
-            when (val result = getCharacterDetailUserCase(id)) {
+            when (val result = getCharacterDetailUseCase(id)) {
                 is Results.Success -> _uiState.value = UiState.Success(result.data)
                 is Results.Loading -> _uiState.value = UiState.Loading
                 is Results.Error -> _uiEvent.emit(UiEvent.Error(result.message))

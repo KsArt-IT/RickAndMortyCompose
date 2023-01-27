@@ -8,7 +8,7 @@ import pro.ksart.rickandmorty.domain.entity.Results
 import pro.ksart.rickandmorty.domain.repository.CharacterRepository
 import javax.inject.Inject
 
-class GetCharacterDetailUserCase @Inject constructor(
+class GetCharacterDetailUseCase @Inject constructor(
     @ApplicationContext private val context: Context,
     private val repository: CharacterRepository,
 ) {
