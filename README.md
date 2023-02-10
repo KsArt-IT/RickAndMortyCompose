@@ -1,12 +1,10 @@
 # Rick and Morty Compose
 
-![Language](https://img.shields.io/badge/Kotlin-1.7.20-blue) ![License](https://img.shields.io/aur/license/android-studio)
+![Language](https://img.shields.io/badge/Kotlin-1.8.10-blue) ![Compose](https://img.shields.io/badge/Compose-1.4.2-magenta) ![License](https://img.shields.io/aur/license/android-studio)
 
 Display of characters from the animated series Rick and Morty
 
-<p>
-<img src="./img/title.png" width="100%" height="100%"/>
-</p>
+![Title](/img/title.png)
 
 ## Architecture
 
@@ -34,7 +32,7 @@ Display of characters from the animated series Rick and Morty
 ## License
 
 ```
-Copyright 2022 [KsArT](https://github.com/KsArt-IT/).
+Copyright 2023 KsArT (https://github.com/KsArT-IT/).
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

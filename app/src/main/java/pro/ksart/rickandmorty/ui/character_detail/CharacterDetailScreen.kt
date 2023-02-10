@@ -27,7 +27,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.ExperimentalLifecycleComposeApi
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.flowWithLifecycle
 import androidx.navigation.NavController
@@ -45,7 +44,6 @@ import pro.ksart.rickandmorty.ui.characters.LoadingView
 import pro.ksart.rickandmorty.ui.components.RickMortyAppBar
 import pro.ksart.rickandmorty.ui.showToast
 
-@OptIn(ExperimentalLifecycleComposeApi::class)
 @Composable
 fun CharacterDetailScreen(
     characterId: Int,
