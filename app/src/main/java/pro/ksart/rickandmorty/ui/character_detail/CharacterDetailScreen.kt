@@ -35,8 +35,8 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.items
 import pro.ksart.rickandmorty.R
 import pro.ksart.rickandmorty.data.entity.CharacterDetail
-import pro.ksart.rickandmorty.data.entity.UiEvent
-import pro.ksart.rickandmorty.data.entity.UiState
+import pro.ksart.rickandmorty.domain.entity.UiEvent
+import pro.ksart.rickandmorty.domain.entity.UiState
 import pro.ksart.rickandmorty.ui.characters.ErrorItem
 import pro.ksart.rickandmorty.ui.characters.ErrorView
 import pro.ksart.rickandmorty.ui.characters.LoadingItem

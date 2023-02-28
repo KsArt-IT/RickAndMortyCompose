@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.mapNotNull
 import kotlinx.coroutines.launch
 import pro.ksart.rickandmorty.data.entity.CharacterRam
-import pro.ksart.rickandmorty.data.entity.UiEvent
+import pro.ksart.rickandmorty.domain.entity.UiEvent
 import pro.ksart.rickandmorty.domain.entity.Results
 import pro.ksart.rickandmorty.domain.usecase.GetCharactersUseCase
 import pro.ksart.rickandmorty.domain.usecase.SwitchDarkThemeUseCase

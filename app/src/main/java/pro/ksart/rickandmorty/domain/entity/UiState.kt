@@ -1,4 +1,4 @@
-package pro.ksart.rickandmorty.data.entity
+package pro.ksart.rickandmorty.domain.entity
 
 sealed class UiState<out T : Any> {
 

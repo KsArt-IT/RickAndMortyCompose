@@ -25,7 +25,7 @@ import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
 import androidx.paging.compose.items
 import pro.ksart.rickandmorty.R
-import pro.ksart.rickandmorty.data.entity.UiEvent
+import pro.ksart.rickandmorty.domain.entity.UiEvent
 import pro.ksart.rickandmorty.ui.components.RickMortyAppBar
 import pro.ksart.rickandmorty.ui.showToast
 

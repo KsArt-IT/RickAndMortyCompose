@@ -2,7 +2,6 @@ package pro.ksart.rickandmorty.data.repository
 
 import android.content.Context
 import android.content.SharedPreferences
-import android.util.Log
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -38,7 +37,6 @@ class PreferencesRepositoryImpl @Inject constructor(
     override suspend fun switchDarkTheme() {
         withContext(dispatcher) {
             isDarkTheme = !isDarkTheme
-            Log.d("ram151", "PreferencesRepositoryImpl|switchDarkTheme $isDarkTheme")
         }
     }
 

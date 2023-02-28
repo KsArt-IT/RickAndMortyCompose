@@ -39,9 +39,9 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.4.2"
+        kotlinCompilerExtensionVersion = "1.4.3"
     }
-    packagingOptions {
+    packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
@@ -56,8 +56,8 @@ dependencies {
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
 
     // Lifecycle KTX
-    val lifecycleVersion = "2.6.0-alpha05"
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.5.1")
+    val lifecycleVersion = "2.6.0-rc01"
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVersion")
     // ViewModel
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion")
     // Saved State module for ViewModel
@@ -66,7 +66,7 @@ dependencies {
     val composeBomVersion = platform("androidx.compose:compose-bom:2023.01.00")
     implementation(composeBomVersion)
     androidTestImplementation(composeBomVersion)
-    val composeVersion = "1.4.2"
+    val composeVersion = "1.4.3"
     implementation("androidx.compose.compiler:compiler:$composeVersion")
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.ui:ui-tooling-preview")
@@ -75,8 +75,11 @@ dependencies {
     // Compose dependencies
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:$lifecycleVersion")
     implementation("androidx.lifecycle:lifecycle-runtime-compose:$lifecycleVersion")
-    implementation("androidx.navigation:navigation-compose:$lifecycleVersion")
     implementation("com.google.accompanist:accompanist-flowlayout:0.28.0")
+    // Compose navigation
+    val composeNavigationVersion = "2.5.3"
+    implementation("androidx.navigation:navigation-compose:$composeNavigationVersion")
+
     // SplashScreen on devices prior Android 12
     implementation("androidx.core:core-splashscreen:1.0.0")
     // Coroutines and Flow

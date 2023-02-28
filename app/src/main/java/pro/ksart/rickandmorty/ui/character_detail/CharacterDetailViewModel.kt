@@ -14,9 +14,9 @@ import kotlinx.coroutines.flow.mapNotNull
 import kotlinx.coroutines.launch
 import pro.ksart.rickandmorty.data.entity.CharacterDetail
 import pro.ksart.rickandmorty.data.entity.Episode
-import pro.ksart.rickandmorty.data.entity.UiEvent
-import pro.ksart.rickandmorty.data.entity.UiState
 import pro.ksart.rickandmorty.domain.entity.Results
+import pro.ksart.rickandmorty.domain.entity.UiEvent
+import pro.ksart.rickandmorty.domain.entity.UiState
 import pro.ksart.rickandmorty.domain.usecase.GetCharacterDetailUseCase
 import pro.ksart.rickandmorty.domain.usecase.GetEpisodesUseCase
 import pro.ksart.rickandmorty.domain.usecase.SwitchDarkThemeUseCase
