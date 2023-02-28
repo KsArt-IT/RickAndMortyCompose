@@ -1,7 +1,7 @@
 plugins {
     id("com.android.application")
     kotlin("android")
-    kotlin("kapt")
+    id("com.google.devtools.ksp")
     id("dagger.hilt.android.plugin")
 }
 
@@ -89,8 +89,8 @@ dependencies {
     // Dagger Hilt
     val hiltVersion: String by rootProject.extra
     implementation("com.google.dagger:hilt-android:$hiltVersion")
-    kapt("com.google.dagger:hilt-android-compiler:$hiltVersion")
-    kapt("androidx.hilt:hilt-compiler:1.0.0")
+    ksp("com.google.dagger:hilt-android-compiler:$hiltVersion")
+    ksp("androidx.hilt:hilt-compiler:1.0.0")
     implementation("androidx.hilt:hilt-navigation-compose:1.0.0")
     // Retrofit
     val retrofitVersion = "2.9.0"
@@ -102,7 +102,7 @@ dependencies {
     val moshiVersion = "1.14.0"
     implementation("com.squareup.moshi:moshi:$moshiVersion")
     implementation("com.squareup.moshi:moshi-kotlin:$moshiVersion")
-    kapt("com.squareup.moshi:moshi-kotlin-codegen:$moshiVersion")
+    ksp("com.squareup.moshi:moshi-kotlin-codegen:$moshiVersion")
     // Paging3 - Jetpack Compose integration
     implementation("androidx.paging:paging-compose:1.0.0-alpha18")
     // Coil
