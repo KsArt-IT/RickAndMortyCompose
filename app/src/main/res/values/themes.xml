@@ -2,6 +2,7 @@
 <resources>
 
     <style name="Theme.RickAndMorty" parent="android:Theme.Material.Light.NoActionBar" />
+
     <style name="Theme.AppSplashScreen" parent="Theme.SplashScreen">
         <item name="android:windowBackground">@color/white</item>
         <item name="windowSplashScreenBackground">@color/black</item>

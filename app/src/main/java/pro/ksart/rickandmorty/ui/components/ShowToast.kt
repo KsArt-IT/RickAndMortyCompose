@@ -1,4 +1,4 @@
-package pro.ksart.rickandmorty.ui
+package pro.ksart.rickandmorty.ui.components
 
 import android.content.Context
 import android.widget.Toast

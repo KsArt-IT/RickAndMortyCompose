@@ -9,18 +9,15 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.mapNotNull
-import kotlinx.coroutines.launch
 import pro.ksart.rickandmorty.data.entity.CharacterRam
-import pro.ksart.rickandmorty.domain.entity.UiEvent
 import pro.ksart.rickandmorty.domain.entity.Results
+import pro.ksart.rickandmorty.domain.entity.UiEvent
 import pro.ksart.rickandmorty.domain.usecase.GetCharactersUseCase
-import pro.ksart.rickandmorty.domain.usecase.SwitchDarkThemeUseCase
 import javax.inject.Inject
 
 @HiltViewModel
 class CharactersViewModel @Inject constructor(
     getCharactersUseCase: GetCharactersUseCase,
-    private val switchDarkThemeUseCase: SwitchDarkThemeUseCase,
 ) : ViewModel() {
 
     private val _uiEvent = MutableSharedFlow<UiEvent<Unit>>()
@@ -39,9 +36,4 @@ class CharactersViewModel @Inject constructor(
         }
             .cachedIn(viewModelScope)
 
-    fun switchDarkTheme() {
-        viewModelScope.launch {
-            switchDarkThemeUseCase()
-        }
-    }
 }

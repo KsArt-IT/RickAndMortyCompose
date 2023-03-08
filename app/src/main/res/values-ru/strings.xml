@@ -14,4 +14,6 @@
     <string name="character_created_title">Создан:</string>
     <string name="character_origin_title">Первоначальная локация:</string>
     <string name="episode_title">Эпизоды:</string>
+    <string name="back_button_description">Назад</string>
+    <string name="character_title">Персонаж</string>
 </resources>

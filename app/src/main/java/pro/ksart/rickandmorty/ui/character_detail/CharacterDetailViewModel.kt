@@ -19,14 +19,12 @@ import pro.ksart.rickandmorty.domain.entity.UiEvent
 import pro.ksart.rickandmorty.domain.entity.UiState
 import pro.ksart.rickandmorty.domain.usecase.GetCharacterDetailUseCase
 import pro.ksart.rickandmorty.domain.usecase.GetEpisodesUseCase
-import pro.ksart.rickandmorty.domain.usecase.SwitchDarkThemeUseCase
 import javax.inject.Inject
 
 @HiltViewModel
 class CharacterDetailViewModel @Inject constructor(
     private val getCharacterDetailUseCase: GetCharacterDetailUseCase,
     private val getEpisodesUseCase: GetEpisodesUseCase,
-    private val switchDarkThemeUseCase: SwitchDarkThemeUseCase,
 ) : ViewModel() {
 
     private val _uiEvent = MutableSharedFlow<UiEvent<Unit>>()
@@ -57,10 +55,4 @@ class CharacterDetailViewModel @Inject constructor(
             }
         }
             .cachedIn(viewModelScope)
-
-    fun switchDarkTheme() {
-        viewModelScope.launch {
-            switchDarkThemeUseCase()
-        }
-    }
 }

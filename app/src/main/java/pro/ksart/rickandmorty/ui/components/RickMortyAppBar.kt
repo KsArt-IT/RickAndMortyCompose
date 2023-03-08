@@ -1,6 +1,7 @@
 package pro.ksart.rickandmorty.ui.components
 
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -9,7 +10,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.contentColorFor
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -22,12 +22,12 @@ import pro.ksart.rickandmorty.R
 @Composable
 fun RickMortyAppBar(
     title: String,
+    canNavigateBack: Boolean,
     modifier: Modifier = Modifier,
-    navigationIcon: @Composable () -> Unit = {},
+    navigateUp: () -> Unit = {},
     backgroundColor: Color = MaterialTheme.colorScheme.surface,
-    contentColor: Color = contentColorFor(backgroundColor),
     elevation: Dp = 8.dp,
-    onActionClick: () -> Unit
+    onActionClick: () -> Unit,
 ) {
     Surface(
         color = backgroundColor,
@@ -36,8 +36,18 @@ fun RickMortyAppBar(
         modifier = modifier,
     ) {
         TopAppBar(
-            title = { Text(text = title) },
-            navigationIcon = navigationIcon,
+            title = { Text(title) },
+            modifier = modifier,
+            navigationIcon = {
+                if (canNavigateBack) {
+                    IconButton(onClick = navigateUp) {
+                        Icon(
+                            imageVector = Icons.Filled.ArrowBack,
+                            contentDescription = stringResource(R.string.back_button_description)
+                        )
+                    }
+                }
+            },
             actions = {
                 IconButton(onClick = { onActionClick() }) {
                     Icon(Icons.Filled.Settings, stringResource(id = R.string.theme_light_dark))

@@ -16,4 +16,6 @@
     <string name="character_created_title">Created:</string>
     <string name="character_origin_title">Origin location:</string>
     <string name="episode_title">Episodes:</string>
+    <string name="back_button_description">Back</string>
+    <string name="character_title">Character</string>
 </resources>
