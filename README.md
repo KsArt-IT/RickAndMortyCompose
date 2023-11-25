@@ -1,6 +1,6 @@
 # Rick and Morty Compose
 
-![Language](https://img.shields.io/badge/Kotlin-1.8.10-blue) ![Compose](https://img.shields.io/badge/Compose-1.4.2-magenta) ![License](https://img.shields.io/aur/license/android-studio)
+![Language](https://img.shields.io/badge/Kotlin-1.9.20-blue) ![Compose](https://img.shields.io/badge/Compose-1.5.4-magenta) ![License](https://img.shields.io/aur/license/android-studio)
 
 Display of characters from the animated series Rick and Morty
 
@@ -21,11 +21,11 @@ Display of characters from the animated series Rick and Morty
 - [Lifecycle-ktx](https://developer.android.com/kotlin/ktx)
 - [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel)
 - [Navigation Component Compose](https://developer.android.com/jetpack/compose/navigation)
-- [Paging Compose](https://developer.android.com/jetpack/androidx/releases/paging#paging_compose_version_100_2)
+- [Paging Compose](https://developer.android.com/jetpack/androidx/releases/paging)
 - [Dagger Hilt](https://developer.android.com/training/dependency-injection/hilt-android) for Dependency Injection
 - [Retrofit](https://github.com/square/retrofit) for network operations
+- [Kotlin Serialization Converter](https://github.com/JakeWharton/retrofit2-kotlinx-serialization-converter) json converter for retrofit
 - [OkHttp](https://github.com/square/okhttp)
-- [Moshi Conver](https://github.com/square/moshi) json converter
 - [Coil](https://coil-kt.github.io/coil/compose/) for image loading
 - [Api](https://rickandmortyapi.com/documentation/#get-all-characters)
 

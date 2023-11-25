@@ -1,8 +1,8 @@
 package pro.ksart.rickandmorty.data.entity
 
-import com.squareup.moshi.JsonClass
+import kotlinx.serialization.Serializable
 
-@JsonClass(generateAdapter = true)
+@Serializable
 data class CharacterRam(
     val id: Int,
     val name: String,

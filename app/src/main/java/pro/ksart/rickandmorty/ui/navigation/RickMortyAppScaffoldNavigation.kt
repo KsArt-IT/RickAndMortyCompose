@@ -60,6 +60,7 @@ fun RickMortyApp(
             composable(
                 route = Screen.CharactersScreen.route
             ) {
+                titleApp = titleInit
                 CharactersScreen(
                     onClick = { id ->
                         navController.navigate("${Screen.CharacterDetailScreen.route}/$id")

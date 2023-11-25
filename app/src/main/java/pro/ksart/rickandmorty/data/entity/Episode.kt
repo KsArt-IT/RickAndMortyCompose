@@ -1,13 +1,13 @@
 package pro.ksart.rickandmorty.data.entity
 
-import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
-@JsonClass(generateAdapter = true)
+@Serializable
 data class Episode(
     val id: Int,
     val name: String,
-    @Json(name = "air_date")
+    @SerialName("air_date")
     val airDate: String,
     val episode: String,
     val url: String,

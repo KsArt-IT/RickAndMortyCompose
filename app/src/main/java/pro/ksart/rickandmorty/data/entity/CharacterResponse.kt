@@ -1,14 +1,14 @@
 package pro.ksart.rickandmorty.data.entity
 
-import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
-@JsonClass(generateAdapter = true)
+@Serializable
 data class CharacterResponse(
-    @Json(name = "error")
+    @SerialName("error")
     val error: String? = "",
-    @Json(name = "info")
+    @SerialName("info")
     val info: Info,
-    @Json(name = "results")
+    @SerialName("results")
     val characterRams: List<CharacterRam>,
 )

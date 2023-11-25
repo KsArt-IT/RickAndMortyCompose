@@ -13,13 +13,13 @@ import pro.ksart.rickandmorty.data.entity.Episode
 import pro.ksart.rickandmorty.data.network.CharacterPagingSource
 import pro.ksart.rickandmorty.data.network.CharacterService
 import pro.ksart.rickandmorty.data.network.EpisodePagingSource
-import pro.ksart.rickandmorty.di.IoDispatcher
 import pro.ksart.rickandmorty.domain.repository.CharacterRepository
 import javax.inject.Inject
+import javax.inject.Named
 
 class CharacterRepositoryImpl @Inject constructor(
     private val service: CharacterService,
-    @IoDispatcher private val dispatcher: CoroutineDispatcher,
+    @Named("IoDispatcher") private val dispatcher: CoroutineDispatcher,
 ) : CharacterRepository {
 
     override fun requestCharacters(): Flow<PagingData<CharacterRam>> = Pager(

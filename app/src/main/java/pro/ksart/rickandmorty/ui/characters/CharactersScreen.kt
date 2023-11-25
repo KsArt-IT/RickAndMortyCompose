@@ -3,6 +3,8 @@ package pro.ksart.rickandmorty.ui.characters
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
@@ -14,7 +16,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.flowWithLifecycle
 import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
-import androidx.paging.compose.items
 import pro.ksart.rickandmorty.domain.entity.UiEvent
 import pro.ksart.rickandmorty.ui.components.showToast
 
@@ -45,14 +46,26 @@ fun CharactersScreen(
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
         contentPadding = PaddingValues(8.dp),
+        state = rememberLazyListState(),
     ) {
-        items(characters) { character ->
-            character?.let {
+/*
+        items(characters.itemCount) { index ->
+            characters[index]?.let {
                 CharacterItem(
                     character = it,
                     onClick = onClick
                 )
             }
+        }
+*/
+        items(
+            items = characters.itemSnapshotList.items,
+            key = { it.id }
+        ) { character ->
+            CharacterItem(
+                character = character,
+                onClick = onClick
+            )
         }
         characters.apply {
             when {

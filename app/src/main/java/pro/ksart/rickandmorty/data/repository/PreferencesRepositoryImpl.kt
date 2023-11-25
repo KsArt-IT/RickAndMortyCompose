@@ -7,13 +7,13 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.withContext
-import pro.ksart.rickandmorty.di.IoDispatcher
 import pro.ksart.rickandmorty.domain.repository.PreferencesRepository
 import javax.inject.Inject
+import javax.inject.Named
 
 class PreferencesRepositoryImpl @Inject constructor(
     @ApplicationContext context: Context,
-    @IoDispatcher private val dispatcher: CoroutineDispatcher,
+    @Named("IoDispatcher") private val dispatcher: CoroutineDispatcher,
 ) : PreferencesRepository {
 
     private val _isDarkThemeState = MutableStateFlow(false)

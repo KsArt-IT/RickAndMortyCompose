@@ -4,6 +4,8 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -21,7 +23,6 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.flowWithLifecycle
 import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
-import androidx.paging.compose.items
 import pro.ksart.rickandmorty.R
 import pro.ksart.rickandmorty.data.entity.CharacterDetail
 import pro.ksart.rickandmorty.domain.entity.UiEvent
@@ -71,6 +72,7 @@ fun CharacterDetailScreen(
             LazyColumn(
                 modifier = Modifier.fillMaxSize(),
                 contentPadding = PaddingValues(8.dp),
+                state = rememberLazyListState(),
             ) {
                 item {
                     CharacterDetailView(characterDetail)
@@ -91,8 +93,25 @@ fun CharacterDetailScreen(
                         ),
                     )
                 }
-                items(episodes) { episode ->
-                    episode?.takeIf { element ->
+                /*
+                                items(episodes.itemCount) { index  ->
+                                    val episode = episodes[index]
+                                    episode?.takeIf { element ->
+                                        characterEpisodes.contains(element.id)
+                                    }?.let {
+                                        EpisodeItem(
+                                            name = it.name,
+                                            airDate = it.airDate,
+                                            episode = it.episode,
+                                        )
+                                    }
+                                }
+                */
+                items(
+                    items = episodes.itemSnapshotList.items,
+                    key = { it.id }
+                ) { episode ->
+                    episode.takeIf { element ->
                         characterEpisodes.contains(element.id)
                     }?.let {
                         EpisodeItem(

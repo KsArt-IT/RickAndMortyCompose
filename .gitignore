@@ -38,7 +38,7 @@ captures/
 
 # IntelliJ
 *.iml
-/.idea/
+.idea
 .DS_Store
 
 # Keystore files

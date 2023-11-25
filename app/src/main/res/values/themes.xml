@@ -9,6 +9,5 @@
         <item name="windowSplashScreenIconBackgroundColor">@color/white</item>
         <item name="windowSplashScreenAnimatedIcon">@mipmap/ic_launcher</item>
         <item name="postSplashScreenTheme">@style/Theme.RickAndMorty</item>
-        <item name="windowSplashScreenAnimationDuration">500</item>
     </style>
 </resources>

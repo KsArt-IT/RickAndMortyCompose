@@ -6,17 +6,13 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
-import javax.inject.Qualifier
+import javax.inject.Named
 
 @Module
 @InstallIn(SingletonComponent::class)
 class CoroutineDispatcherModule {
 
-    @IoDispatcher
+    @Named("IoDispatcher")
     @Provides
     fun provideIoDispatcher(): CoroutineDispatcher = Dispatchers.IO
 }
-
-@Qualifier
-@Retention(AnnotationRetention.BINARY)
-annotation class IoDispatcher
