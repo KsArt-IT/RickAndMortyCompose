@@ -10,12 +10,7 @@ class EpisodePagingSource(
     private val service: CharacterService,
 ) : PagingSource<Int, Episode>() {
 
-    override fun getRefreshKey(state: PagingState<Int, Episode>): Int? {
-        return state.anchorPosition?.let { anchorPosition ->
-            state.closestPageToPosition(anchorPosition)?.prevKey?.plus(1)
-                ?: state.closestPageToPosition(anchorPosition)?.nextKey?.minus(1)
-        }
-    }
+    override fun getRefreshKey(state: PagingState<Int, Episode>) = state.anchorPosition
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Episode> {
         val position = params.key ?: CharacterService.STARTING_PAGE_INDEX

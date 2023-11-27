@@ -1,10 +1,10 @@
 package pro.ksart.rickandmorty.ui.character_detail
 
+import android.util.Log
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -23,6 +23,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.flowWithLifecycle
 import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
+import androidx.paging.compose.itemKey
 import pro.ksart.rickandmorty.R
 import pro.ksart.rickandmorty.data.entity.CharacterDetail
 import pro.ksart.rickandmorty.domain.entity.UiEvent
@@ -67,7 +68,9 @@ fun CharacterDetailScreen(
 
     when (uiState) {
         is UiState.Success -> {
+            log("UiState.Success")
             val characterDetail = (uiState as UiState.Success<CharacterDetail>).data
+            log("UiState.Success - Ok")
             onTitleChanged(characterDetail.name)
             LazyColumn(
                 modifier = Modifier.fillMaxSize(),
@@ -93,31 +96,17 @@ fun CharacterDetailScreen(
                         ),
                     )
                 }
-                /*
-                                items(episodes.itemCount) { index  ->
-                                    val episode = episodes[index]
-                                    episode?.takeIf { element ->
-                                        characterEpisodes.contains(element.id)
-                                    }?.let {
-                                        EpisodeItem(
-                                            name = it.name,
-                                            airDate = it.airDate,
-                                            episode = it.episode,
-                                        )
-                                    }
-                                }
-                */
                 items(
-                    items = episodes.itemSnapshotList.items,
-                    key = { it.id }
-                ) { episode ->
-                    episode.takeIf { element ->
+                    count = episodes.itemCount,
+                    key = episodes.itemKey { it.id }
+                ) { index ->
+                    episodes[index]?.takeIf { element ->
                         characterEpisodes.contains(element.id)
-                    }?.let {
+                    }?.let { episode ->
                         EpisodeItem(
-                            name = it.name,
-                            airDate = it.airDate,
-                            episode = it.episode,
+                            name = episode.name,
+                            airDate = episode.airDate,
+                            episode = episode.episode,
                         )
                     }
                 }
@@ -168,4 +157,8 @@ fun CharacterDetailScreen(
 
         is UiState.Error -> {}
     }
+}
+
+private fun log(text: String) {
+    Log.d("Rick", "CharacterDetailScreen: $text")
 }

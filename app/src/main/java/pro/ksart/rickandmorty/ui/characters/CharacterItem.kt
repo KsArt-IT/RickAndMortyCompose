@@ -27,7 +27,6 @@ import pro.ksart.rickandmorty.R
 import pro.ksart.rickandmorty.data.entity.CharacterRam
 import pro.ksart.rickandmorty.ui.components.CoilImageWithLoading
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CharacterItem(
     character: CharacterRam,

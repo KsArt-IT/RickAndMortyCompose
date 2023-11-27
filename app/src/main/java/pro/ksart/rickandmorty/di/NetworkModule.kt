@@ -6,6 +6,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.JsonConfiguration
 import okhttp3.Interceptor
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
@@ -41,8 +42,10 @@ class NetworkModule {
     // Kotlinx Serialization Converter
     @Named("KotlinXJson")
     @Provides
-    fun providerConverter(): Converter.Factory =
-        Json.asConverterFactory("application/json".toMediaType())
+    fun providerConverter(): Converter.Factory = Json {
+        isLenient = true
+        ignoreUnknownKeys = true
+    }.asConverterFactory("application/json".toMediaType())
 
     @Provides
     @Singleton

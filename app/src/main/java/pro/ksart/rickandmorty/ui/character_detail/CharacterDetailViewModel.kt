@@ -43,16 +43,15 @@ class CharacterDetailViewModel @Inject constructor(
         }
     }
 
-    val episodes: Flow<PagingData<Episode>> =
-        getEpisodesUseCase().mapNotNull { result ->
-            when (result) {
-                is Results.Success -> result.data
-                is Results.Loading -> null
-                is Results.Error -> {
-                    _uiEvent.emit(UiEvent.Error(result.message))
-                    null
-                }
+    val episodes: Flow<PagingData<Episode>> = getEpisodesUseCase().mapNotNull { result ->
+        when (result) {
+            is Results.Success -> result.data
+            is Results.Loading -> null
+            is Results.Error -> {
+                _uiEvent.emit(UiEvent.Error(result.message))
+                null
             }
         }
-            .cachedIn(viewModelScope)
+    }
+        .cachedIn(viewModelScope)
 }

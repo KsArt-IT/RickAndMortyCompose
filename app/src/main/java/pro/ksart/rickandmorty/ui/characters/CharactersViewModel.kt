@@ -35,5 +35,4 @@ class CharactersViewModel @Inject constructor(
             }
         }
             .cachedIn(viewModelScope)
-
 }
